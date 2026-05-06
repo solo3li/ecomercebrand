@@ -1,4 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Splash Screen Logic
+    const splash = document.getElementById("splashScreen");
+    if (splash) {
+        if (!sessionStorage.getItem('hasSeenSplash')) {
+            splash.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            
+            setTimeout(() => {
+                splash.classList.add('hidden');
+                document.body.style.overflow = '';
+                sessionStorage.setItem('hasSeenSplash', 'true');
+                
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                }, 1000);
+            }, 2000);
+        }
+    }
+
     // Navbar scroll effect
     const navbar = document.getElementById('navbar');
     
