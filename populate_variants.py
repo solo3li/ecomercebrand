@@ -55,6 +55,10 @@ data = [
 def run():
     print("Populating database with categories and variants...")
     
+    if Product.objects.exists():
+        print("Products already exist. Skipping population.")
+        return
+    
     for cat_data in data:
         category, _ = Category.objects.get_or_create(name=cat_data['category'])
         
