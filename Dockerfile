@@ -1,28 +1,28 @@
-# Use an official Python runtime as a parent image
-FROM python:3.11-slim
+# Use an official Python Alpine image for maximum compactness
+FROM python:3.11-alpine
 
 # Set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Install system dependencies (needed for Pillow and SQLite)
-RUN apt-get update && apt-get install -y \
-    gcc \
-    libjpeg-dev \
-    zlib1g-dev \
-    && rm -rf /var/lib/apt/lists/*
+# Install runtime dependencies required for Pillow
+RUN apk add --no-cache jpeg-dev zlib-dev
 
 # Copy the requirements file into the container
 COPY requirements.txt /app/
 
-# Install Python dependencies
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+# Install build dependencies temporarily, install Python packages without cache, then remove build dependencies
+RUN apk add --no-cache --virtual .build-deps \
+    build-base \
+    linux-headers \
+    && pip install --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt \
+    && apk del .build-deps
 
-# Copy the current directory contents into the container at /app
+# Copy the current directory contents into the container
 COPY . /app/
 
 # Expose port 8000 for the Django server
