@@ -229,28 +229,31 @@ a:hover {
 
 /* Homepage Sections */
 .hero {
-    height: 90vh;
+    height: 100vh;
     background-color: var(--color-navy);
-    background-image: linear-gradient(rgba(15, 26, 42, 0.4), rgba(15, 26, 42, 0.6)), url('../images/hero.jpg');
+    background-image: linear-gradient(rgba(15, 26, 42, 0.3), rgba(15, 26, 42, 0.5)), url('../images/hero.jpg');
     background-size: cover;
     background-position: center;
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
+    justify-content: flex-start;
+    padding-left: 10%;
     color: var(--color-white);
     margin-top: -80px; /* pull up under transparent nav */
 }
 
 .hero-content {
-    max-width: 800px;
+    max-width: 600px;
     padding: 0 20px;
+    text-align: left;
 }
 
 .hero-title {
-    font-size: 4rem;
-    margin-bottom: 20px;
+    font-size: 5rem;
+    margin-bottom: 15px;
     color: var(--color-white);
+    line-height: 1.1;
+    letter-spacing: 0.05em;
 }
 
 .hero-subtitle {
@@ -258,6 +261,19 @@ a:hover {
     margin-bottom: 40px;
     font-family: var(--font-body);
     font-weight: 300;
+    opacity: 0.9;
+    letter-spacing: 0.05em;
+}
+
+.btn-hero {
+    background-color: transparent;
+    color: var(--color-white);
+    border: 1px solid var(--color-white);
+}
+
+.btn-hero:hover {
+    background-color: var(--color-white);
+    color: var(--color-navy);
 }
 
 .collection-highlight {
