@@ -369,7 +369,10 @@ a:hover {
     color: var(--color-olive);
 }
 
-.form-control {
+.form-control,
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="email"] {
     width: 100%;
     padding: 15px 0;
     border: none;
@@ -381,7 +384,8 @@ a:hover {
     color: var(--color-navy);
 }
 
-.form-control:focus {
+.form-control:focus,
+.form-group input:focus {
     outline: none;
     border-bottom-color: var(--color-navy);
 }

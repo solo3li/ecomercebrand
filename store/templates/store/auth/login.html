@@ -3,15 +3,44 @@
 {% block title %}Login - Bervado{% endblock %}
 
 {% block content %}
-<div class="container fade-in">
-    <div style="max-width: 500px; margin: 0 auto; background: var(--color-white); padding: 40px; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
-        <h1 class="section-title" style="font-size: 2rem; margin-bottom: 2rem;">Login</h1>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Login</button>
-        </form>
-        <p style="text-align: center; margin-top: 20px;">Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+<div class="auth-split-wrapper fade-in">
+    <div class="auth-image"></div>
+    
+    <div class="auth-form-container">
+        <div class="auth-form-card">
+            <h1 class="section-title">Welcome Back</h1>
+            
+            <form method="post">
+                {% csrf_token %}
+                
+                {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.help_text %}
+                        <p class="auth-help-text">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <p class="auth-error">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+                
+                {% if form.non_field_errors %}
+                <div style="margin-bottom: 20px;">
+                    {% for error in form.non_field_errors %}
+                        <p class="auth-error">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Login</button>
+            </form>
+            
+            <p style="text-align: center; margin-top: 30px; font-size: 0.9rem;">
+                Don't have an account? <a href="{% url 'register' %}" style="text-decoration: underline; color: var(--color-olive);">Register</a>
+            </p>
+        </div>
     </div>
 </div>
 {% endblock %}
