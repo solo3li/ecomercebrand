@@ -1,0 +1,40 @@
+@model Bervado.Web.Models.Product
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="container section-padding">
+    <div class="row">
+        <div class="col-md-6 mb-4 mb-md-0 text-center">
+            <img src="@Model.ImageUrl" alt="@Model.Title" class="img-fluid shadow-sm" style="max-height: 600px; object-fit: cover;">
+        </div>
+        <div class="col-md-6 d-flex flex-column justify-content-center px-md-5">
+            <h2 class="mb-3">@Model.Title</h2>
+            <h4 class="text-muted mb-4">$@Model.Price.ToString("0.00")</h4>
+            
+            <p class="mb-5 lead" style="font-size: 1.1rem; line-height: 1.8;">@Model.Description</p>
+            
+            <form class="mb-4">
+                <div class="mb-4">
+                    <label for="size" class="form-label text-muted text-uppercase" style="letter-spacing: 1px; font-size: 0.85rem;">Select Size</label>
+                    <select class="form-select border-1" id="size" style="border-radius: 0; border-color: var(--navy);">
+                        @if (!string.IsNullOrEmpty(Model.Sizes))
+                        {
+                            foreach (var size in Model.Sizes.Split(','))
+                            {
+                                <option value="@size.Trim()">@size.Trim()</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <button type="button" class="btn btn-primary w-100 py-3">Add to Cart</button>
+            </form>
+            
+            <div class="mt-4 border-top pt-4">
+                <p class="small text-muted mb-1"><strong class="text-dark">Care:</strong> Dry clean or cold wash. Do not tumble dry.</p>
+                <p class="small text-muted"><strong class="text-dark">Shipping:</strong> Complimentary shipping on orders over $200.</p>
+            </div>
+        </div>
+    </div>
+</div>
