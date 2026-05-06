@@ -1,0 +1,55 @@
+{% extends 'store/base.html' %}
+
+{% block title %}My Profile - Bervado{% endblock %}
+
+{% block content %}
+<div class="container fade-in">
+    <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid var(--color-gold); padding-bottom: 10px; margin-bottom: 40px;">
+        <h1 class="section-title" style="margin-bottom: 0;">Welcome, {{ user.username }}</h1>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-secondary">Logout</button>
+        </form>
+    </div>
+    
+    <div style="max-width: 1000px; margin: 0 auto;">
+        <h2 style="font-size: 1.8rem; margin-bottom: 20px;">Order History</h2>
+        
+        {% if orders %}
+            <table style="width: 100%; border-collapse: collapse; background: var(--color-white); box-shadow: 0 4px 15px rgba(0,0,0,0.03); border-radius: 4px; overflow: hidden;">
+                <thead style="background: var(--color-navy); color: var(--color-white);">
+                    <tr>
+                        <th style="text-align: left; padding: 15px;">Order #</th>
+                        <th style="text-align: left; padding: 15px;">Date</th>
+                        <th style="text-align: left; padding: 15px;">Status</th>
+                        <th style="text-align: right; padding: 15px;">Total</th>
+                        <th style="text-align: center; padding: 15px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr style="border-bottom: 1px solid #eee;">
+                        <td style="padding: 15px;"><strong>#{{ order.id }}</strong></td>
+                        <td style="padding: 15px;">{{ order.created_at|date:"M j, Y" }}</td>
+                        <td style="padding: 15px;">
+                            <span style="padding: 5px 10px; border-radius: 20px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; background: var(--color-cream); color: var(--color-navy); border: 1px solid var(--color-gray);">
+                                {{ order.get_status_display }}
+                            </span>
+                        </td>
+                        <td style="text-align: right; padding: 15px;">${{ order.total_price }}</td>
+                        <td style="text-align: center; padding: 15px;">
+                            <a href="{% url 'order_tracking' order.pk %}" class="btn btn-secondary" style="padding: 8px 15px; font-size: 0.8rem;">Track</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div style="background: var(--color-white); padding: 40px; text-align: center; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+                <p style="margin-bottom: 20px; color: var(--color-olive);">You haven't placed any orders yet.</p>
+                <a href="{% url 'shop' %}" class="btn btn-primary">Start Shopping</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

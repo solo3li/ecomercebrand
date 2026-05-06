@@ -104,3 +104,8 @@ def checkout(request):
 def order_tracking(request, pk):
     order = get_object_or_404(Order, pk=pk, user=request.user)
     return render(request, 'store/order_tracking.html', {'order': order})
+
+@login_required
+def profile(request):
+    orders = Order.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'store/auth/profile.html', {'orders': orders})
