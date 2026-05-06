@@ -1,0 +1,48 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %}{{ product.name }} - Bervado{% endblock %}
+
+{% block content %}
+<div class="container fade-in">
+    <div class="product-detail-wrap">
+        <div class="product-detail-image">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            {% else %}
+            <img src="{% static 'images/placeholder.jpg' %}" alt="{{ product.name }}">
+            {% endif %}
+        </div>
+        <div class="product-detail-info">
+            <h1>{{ product.name }}</h1>
+            <p class="price">${{ product.price }}</p>
+            
+            <div class="description">
+                <p>{{ product.description|default:"Crafted for everyday refinement. Lightweight, breathable, and timeless." }}</p>
+            </div>
+            
+            <form action="{% url 'add_to_cart' product.pk %}" method="post" class="add-to-cart-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="size">Size</label>
+                    <select name="size" id="size" class="form-control" required>
+                        <option value="" disabled selected>Select Size</option>
+                        {% if product.sizes.all %}
+                            {% for size_obj in product.sizes.all %}
+                                <option value="{{ size_obj.size }}">{{ size_obj.size }}</option>
+                            {% endfor %}
+                        {% else %}
+                            <option value="S">S</option>
+                            <option value="M">M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                        {% endif %}
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Add to Cart</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Bervado - Timeless Elegance{% endblock %}</title>
+    <meta name="description" content="Bervado is an affordable old money clothing brand focused on quiet elegance, minimalism, and timeless style.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="{% url 'home' %}">BERVADO</a>
+            </div>
+            <div class="nav-links">
+                <a href="{% url 'shop' %}">Shop</a>
+                <a href="{% url 'about' %}">About</a>
+                <a href="{% url 'contact' %}">Contact</a>
+                <a href="{% url 'cart' %}" class="cart-link">Cart</a>
+                {% if user.is_authenticated %}
+                    <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="nav-btn-link">Logout</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}">Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="content-wrapper">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">BERVADO</div>
+            <div class="footer-links">
+                <a href="{% url 'about' %}">Our Story</a>
+                <a href="{% url 'shop' %}">Collections</a>
+                <a href="{% url 'contact' %}">Customer Care</a>
+            </div>
+            <div class="footer-social">
+                <span>Instagram</span>
+                <span>Pinterest</span>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Bervado. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

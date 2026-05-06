@@ -1,0 +1,17 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Login - Bervado{% endblock %}
+
+{% block content %}
+<div class="container fade-in">
+    <div style="max-width: 500px; margin: 0 auto; background: var(--color-white); padding: 40px; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+        <h1 class="section-title" style="font-size: 2rem; margin-bottom: 2rem;">Login</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Login</button>
+        </form>
+        <p style="text-align: center; margin-top: 20px;">Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+    </div>
+</div>
+{% endblock %}

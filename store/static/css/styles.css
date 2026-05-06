@@ -1,0 +1,516 @@
+/* BERVADO - Old Money Aesthetic */
+:root {
+    --color-cream: #F5F1E8;
+    --color-white: #FFFFFF;
+    --color-navy: #0F1A2A;
+    --color-olive: #6B705C;
+    --color-brown: #4B3A2F;
+    --color-gold: #C2A878;
+    --color-gray: #D1CFCD;
+    
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Open Sans', sans-serif;
+    
+    --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--color-cream);
+    color: var(--color-navy);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+}
+
+a {
+    color: var(--color-navy);
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+a:hover {
+    color: var(--color-gold);
+}
+
+/* Typography & General */
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 2px;
+    background-color: var(--color-gold);
+    margin: 15px auto 0;
+}
+
+/* Animations */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Navigation Bar */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: transparent;
+    transition: var(--transition-smooth);
+    z-index: 1000;
+    padding: 20px 0;
+}
+
+.navbar.scrolled {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 15px 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.logo a {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.nav-links a, .nav-btn-link {
+    margin-left: 30px;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.nav-btn-link {
+    background: none;
+    border: none;
+    font-family: var(--font-body);
+    color: var(--color-navy);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+.nav-btn-link:hover {
+    color: var(--color-gold);
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    border: 1px solid var(--color-navy);
+}
+
+.btn-primary {
+    background-color: var(--color-navy);
+    color: var(--color-white);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-white);
+    color: var(--color-navy);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--color-navy);
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-navy);
+    color: var(--color-white);
+}
+
+/* Layout */
+.content-wrapper {
+    min-height: 80vh;
+    padding-top: 80px; /* offset for fixed nav */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+/* Product Cards */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 40px;
+}
+
+.product-card {
+    background-color: var(--color-white);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    transition: var(--transition-smooth);
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+}
+
+.product-img-wrap {
+    width: 100%;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    background-color: #eee; /* placeholder */
+}
+
+.product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.product-card:hover .product-img {
+    transform: scale(1.05);
+}
+
+.product-info {
+    padding: 20px;
+}
+
+.product-title {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.product-price {
+    font-family: var(--font-body);
+    color: var(--color-olive);
+}
+
+/* Homepage Sections */
+.hero {
+    height: 90vh;
+    background-color: var(--color-navy);
+    background-image: linear-gradient(rgba(15, 26, 42, 0.4), rgba(15, 26, 42, 0.6)), url('../images/hero.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--color-white);
+    margin-top: -80px; /* pull up under transparent nav */
+}
+
+.hero-content {
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.hero-title {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    color: var(--color-white);
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    font-family: var(--font-body);
+    font-weight: 300;
+}
+
+.collection-highlight {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: var(--color-white);
+    margin: 60px 0;
+}
+
+.highlight-image {
+    flex: 1;
+    min-width: 300px;
+    min-height: 400px;
+    background-image: url('../images/highlight.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.highlight-text {
+    flex: 1;
+    min-width: 300px;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.highlight-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.brand-statement {
+    text-align: center;
+    max-width: 800px;
+    margin: 80px auto;
+}
+
+.brand-statement h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+.brand-statement p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: var(--color-olive);
+}
+
+/* Product Detail */
+.product-detail-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 60px;
+    margin-top: 40px;
+}
+
+.product-detail-image {
+    flex: 1;
+    min-width: 300px;
+}
+
+.product-detail-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.product-detail-info {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.product-detail-info h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.product-detail-info .price {
+    font-size: 1.5rem;
+    color: var(--color-olive);
+    margin-bottom: 30px;
+}
+
+.product-detail-info .description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--color-navy);
+    opacity: 0.8;
+    margin-bottom: 40px;
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--color-gray);
+    background-color: transparent;
+    font-family: var(--font-body);
+    transition: var(--transition-smooth);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--color-navy);
+}
+
+/* Footer */
+.footer {
+    background-color: var(--color-navy);
+    color: var(--color-cream);
+    padding: 60px 20px 20px;
+    margin-top: 60px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid rgba(245, 241, 232, 0.2);
+    padding-bottom: 40px;
+}
+
+.footer-logo {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    letter-spacing: 0.2em;
+}
+
+.footer-links a {
+    display: block;
+    color: var(--color-cream);
+    opacity: 0.8;
+    margin-bottom: 10px;
+}
+
+.footer-links a:hover {
+    opacity: 1;
+    color: var(--color-gold);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    font-size: 0.8rem;
+    opacity: 0.6;
+}
+
+/* Order Stepper */
+.stepper-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.stepper-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    text-align: center;
+}
+
+.stepper-item::before {
+    position: absolute;
+    content: "";
+    border-bottom: 2px solid var(--color-gray);
+    width: 100%;
+    top: 20px;
+    left: -50%;
+    z-index: 2;
+}
+
+.stepper-item::after {
+    position: absolute;
+    content: "";
+    border-bottom: 2px solid var(--color-gold);
+    width: 100%;
+    top: 20px;
+    left: -50%;
+    z-index: 3;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.6s ease;
+}
+
+.stepper-item:first-child::before,
+.stepper-item:first-child::after {
+    content: none;
+}
+
+.step-counter {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--color-cream);
+    border: 2px solid var(--color-gray);
+    margin-bottom: 10px;
+    transition: var(--transition-smooth);
+    background-color: var(--color-white);
+}
+
+.step-name {
+    font-size: 0.9rem;
+    color: var(--color-gray);
+    font-family: var(--font-heading);
+}
+
+/* Active & Completed States */
+.stepper-item.completed .step-counter {
+    background-color: var(--color-gold);
+    border-color: var(--color-gold);
+    color: var(--color-white);
+}
+
+.stepper-item.completed::after {
+    transform: scaleX(1);
+}
+
+.stepper-item.completed .step-name {
+    color: var(--color-navy);
+}
+
+.stepper-item.active .step-counter {
+    border-color: var(--color-navy);
+    color: var(--color-navy);
+}
+
+.stepper-item.active .step-name {
+    color: var(--color-navy);
+    font-weight: 600;
+}

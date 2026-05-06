@@ -1,0 +1,55 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content fade-in">
+        <h1 class="hero-title">Timeless Elegance</h1>
+        <p class="hero-subtitle">Refined simplicity for the modern gentleman.</p>
+        <a href="{% url 'shop' %}" class="btn btn-primary">Shop Now</a>
+    </div>
+</section>
+
+<!-- Featured Products -->
+<section class="featured-products container">
+    <h2 class="section-title fade-in">Featured Collection</h2>
+    <div class="product-grid fade-in">
+        {% for product in featured %}
+        <a href="{% url 'product_detail' product.pk %}" class="product-card">
+            <div class="product-img-wrap">
+                {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-img">
+                {% else %}
+                <img src="{% static 'images/placeholder.jpg' %}" alt="{{ product.name }}" class="product-img">
+                {% endif %}
+            </div>
+            <div class="product-info">
+                <h3 class="product-title">{{ product.name }}</h3>
+                <p class="product-price">${{ product.price }}</p>
+            </div>
+        </a>
+        {% empty %}
+        <p style="text-align:center; width: 100%; grid-column: 1 / -1;">New collection arriving soon.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Collection Highlight -->
+<section class="collection-highlight">
+    <div class="highlight-image fade-in">
+        <!-- Background image handled via CSS -->
+    </div>
+    <div class="highlight-text fade-in">
+        <h2>The Riviera Collection</h2>
+        <p>Breathable fabrics, tailored fits, and quiet luxury designed for the perfect getaway.</p>
+        <a href="{% url 'shop' %}" class="btn btn-secondary" style="margin-top: 20px;">Explore</a>
+    </div>
+</section>
+
+<!-- Brand Statement -->
+<section class="brand-statement container fade-in">
+    <h2>Elegance Without Noise</h2>
+    <p>BERVADO is not about showing wealth. It is about suggesting it. We believe in quiet elegance, minimalism, and timeless style. If it feels loud — it’s wrong. If it feels simple but confident — it’s right.</p>
+</section>
+{% endblock %}
