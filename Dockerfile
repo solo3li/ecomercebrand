@@ -29,4 +29,4 @@ COPY . /app/
 EXPOSE 8000
 
 # Define the command to run the application
-CMD ["sh", "-c", "python manage.py migrate && python populate_variants.py && python manage.py runserver 0.0.0.0:8000"]
+CMD ["sh", "-c", "python manage.py migrate && python init_admin.py && python populate_variants.py && python manage.py runserver 0.0.0.0:8000"]
