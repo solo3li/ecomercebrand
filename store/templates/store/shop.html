@@ -7,24 +7,90 @@
 <div class="container fade-in">
     <h1 class="section-title">The Collection</h1>
     
-    <div class="product-grid">
-        {% for product in products %}
-        <a href="{% url 'product_detail' product.pk %}" class="product-card">
-            <div class="product-img-wrap">
-                {% if product.image %}
-                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-img">
-                {% else %}
-                <img src="{% static 'images/placeholder.jpg' %}" alt="{{ product.name }}" class="product-img">
-                {% endif %}
+    <div style="display: flex; gap: 40px; margin-top: 40px;">
+        <!-- Filters Sidebar -->
+        <aside style="width: 250px; flex-shrink: 0;">
+            <div style="background: var(--color-white); padding: 25px; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); position: sticky; top: 100px;">
+                <h3 style="font-family: var(--font-heading); margin-bottom: 20px; font-size: 1.2rem; border-bottom: 1px solid #eee; padding-bottom: 10px;">Filters</h3>
+                
+                <form action="{% url 'shop' %}" method="get">
+                    <!-- Category Filter -->
+                    <div style="margin-bottom: 25px;">
+                        <h4 style="font-size: 0.9rem; margin-bottom: 10px; color: var(--color-olive);">Category</h4>
+                        <select name="category" class="form-control" style="padding: 8px;">
+                            <option value="">All Categories</option>
+                            {% for cat in categories %}
+                            <option value="{{ cat.id }}" {% if request.GET.category == cat.id|stringformat:"s" %}selected{% endif %}>{{ cat.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Size Filter -->
+                    <div style="margin-bottom: 25px;">
+                        <h4 style="font-size: 0.9rem; margin-bottom: 10px; color: var(--color-olive);">Size</h4>
+                        <select name="size" class="form-control" style="padding: 8px;">
+                            <option value="">All Sizes</option>
+                            {% for s in available_sizes %}
+                            <option value="{{ s }}" {% if request.GET.size == s %}selected{% endif %}>{{ s }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <!-- Color Filter -->
+                    <div style="margin-bottom: 25px;">
+                        <h4 style="font-size: 0.9rem; margin-bottom: 10px; color: var(--color-olive);">Color</h4>
+                        <select name="color" class="form-control" style="padding: 8px;">
+                            <option value="">All Colors</option>
+                            {% for c in available_colors %}
+                            <option value="{{ c }}" {% if request.GET.color == c %}selected{% endif %}>{{ c }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Price Filter -->
+                    <div style="margin-bottom: 25px;">
+                        <h4 style="font-size: 0.9rem; margin-bottom: 10px; color: var(--color-olive);">Price Range</h4>
+                        <div style="display: flex; gap: 10px;">
+                            <input type="number" name="min_price" placeholder="Min" class="form-control" style="padding: 8px;" value="{{ request.GET.min_price }}">
+                            <input type="number" name="max_price" placeholder="Max" class="form-control" style="padding: 8px;" value="{{ request.GET.max_price }}">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 10px;">Apply Filters</button>
+                    
+                    {% if request.GET %}
+                        <a href="{% url 'shop' %}" style="display: block; text-align: center; margin-top: 15px; font-size: 0.8rem; color: var(--color-olive); text-decoration: underline;">Clear Filters</a>
+                    {% endif %}
+                </form>
             </div>
-            <div class="product-info">
-                <h3 class="product-title">{{ product.name }}</h3>
-                <p class="product-price">${{ product.price }}</p>
+        </aside>
+
+        <!-- Product Grid -->
+        <div style="flex: 1;">
+            <div class="product-grid">
+                {% for product in products %}
+                <a href="{% url 'product_detail' product.pk %}" class="product-card">
+                    <div class="product-img-wrap">
+                        {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-img">
+                        {% else %}
+                        <img src="{% static 'images/placeholder.jpg' %}" alt="{{ product.name }}" class="product-img">
+                        {% endif %}
+                    </div>
+                    <div class="product-info">
+                        <p style="font-size: 0.8rem; text-transform: uppercase; color: var(--color-olive); margin-bottom: 5px;">{{ product.category.name }}</p>
+                        <h3 class="product-title">{{ product.name }}</h3>
+                        <p class="product-price">${{ product.price }}</p>
+                    </div>
+                </a>
+                {% empty %}
+                <div style="text-align:center; width: 100%; grid-column: 1 / -1; padding: 60px 0;">
+                    <p style="font-size: 1.2rem; color: var(--color-navy); margin-bottom: 10px;">No products found matching your filters.</p>
+                    <a href="{% url 'shop' %}" class="btn btn-secondary">Clear Filters</a>
+                </div>
+                {% endfor %}
             </div>
-        </a>
-        {% empty %}
-        <p style="text-align:center; width: 100%; grid-column: 1 / -1;">No products found.</p>
-        {% endfor %}
+        </div>
     </div>
 </div>
 {% endblock %}

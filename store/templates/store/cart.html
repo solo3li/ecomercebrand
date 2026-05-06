@@ -18,7 +18,7 @@
                 {% for item in cart.items.all %}
                 <tr style="border-bottom: 1px solid #eee;">
                     <td style="padding: 15px 10px;">{{ item.product.name }}</td>
-                    <td style="padding: 15px 10px;">{{ item.size }}</td>
+                    <td style="padding: 15px 10px;">{{ item.color }}, {{ item.size }}</td>
                     <td style="text-align: center; padding: 15px 10px;">{{ item.quantity }}</td>
                     <td style="text-align: right; padding: 15px 10px;">${{ item.product.price }}</td>
                 </tr>

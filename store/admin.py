@@ -1,14 +1,20 @@
 from django.contrib import admin
-from .models import Product, ProductSize, Cart, CartItem, Order, OrderItem
+from .models import Category, Product, ProductVariant, Cart, CartItem, Order, OrderItem
 
-class ProductSizeInline(admin.TabularInline):
-    model = ProductSize
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('name',)}
+    list_display = ('name', 'slug')
+
+class ProductVariantInline(admin.TabularInline):
+    model = ProductVariant
     extra = 1
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'created_at')
-    inlines = [ProductSizeInline]
+    list_display = ('name', 'category', 'price', 'created_at')
+    list_filter = ('category',)
+    inlines = [ProductVariantInline]
 
 class CartItemInline(admin.TabularInline):
     model = CartItem
@@ -31,4 +37,4 @@ class OrderAdmin(admin.ModelAdmin):
 
 admin.site.register(CartItem)
 admin.site.register(OrderItem)
-admin.site.register(ProductSize)
+admin.site.register(ProductVariant)

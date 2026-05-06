@@ -36,7 +36,7 @@
         <table style="width: 100%; border-collapse: collapse;">
             {% for item in order.items.all %}
             <tr style="border-bottom: 1px solid #eee;">
-                <td style="padding: 10px 0;">{{ item.quantity }}x {{ item.product.name }} ({{ item.size }})</td>
+                <td style="padding: 10px 0;">{{ item.quantity }}x {{ item.product.name }} ({{ item.color }}, {{ item.size }})</td>
                 <td style="text-align: right; padding: 10px 0;">${{ item.price }}</td>
             </tr>
             {% endfor %}

@@ -14,6 +14,7 @@
             {% endif %}
         </div>
         <div class="product-detail-info">
+            <p style="text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-olive); margin-bottom: 5px;">{{ product.category.name }}</p>
             <h1>{{ product.name }}</h1>
             <p class="price">${{ product.price }}</p>
             
@@ -23,21 +24,27 @@
             
             <form action="{% url 'add_to_cart' product.pk %}" method="post" class="add-to-cart-form">
                 {% csrf_token %}
-                <div class="form-group">
-                    <label for="size">Size</label>
-                    <select name="size" id="size" class="form-control" required>
-                        <option value="" disabled selected>Select Size</option>
-                        {% if product.sizes.all %}
-                            {% for size_obj in product.sizes.all %}
-                                <option value="{{ size_obj.size }}">{{ size_obj.size }}</option>
+                
+                <div style="display: flex; gap: 20px; margin-bottom: 20px;">
+                    <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                        <label for="color">Color</label>
+                        <select name="color" id="color" class="form-control" required>
+                            <option value="" disabled selected>Select Color</option>
+                            {% for color in colors %}
+                                <option value="{{ color }}">{{ color }}</option>
                             {% endfor %}
-                        {% else %}
-                            <option value="S">S</option>
-                            <option value="M">M</option>
-                            <option value="L">L</option>
-                            <option value="XL">XL</option>
-                        {% endif %}
-                    </select>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                        <label for="size">Size</label>
+                        <select name="size" id="size" class="form-control" required>
+                            <option value="" disabled selected>Select Size</option>
+                            {% for size in sizes %}
+                                <option value="{{ size }}">{{ size }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
                 
                 <button type="submit" class="btn btn-primary" style="width: 100%;">Add to Cart</button>
